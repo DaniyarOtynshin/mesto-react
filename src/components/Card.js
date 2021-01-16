@@ -7,9 +7,9 @@ function Card(props) {
     }
 
     return (
-        <li key={props.card._id} onClick={handleClick} className="element">
+        <li className="element">
             <button type="button" className="element__delete"></button>
-            <img className="element__image" src={props.card.link} />
+            <img alt={props.card.name} className="element__image" onClick={handleClick} src={props.card.link} />
             <div className="element__info">
                 <h3 className="element__title">{props.card.name}</h3>
                 <div className="element__like-section">

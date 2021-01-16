@@ -34,9 +34,9 @@ function Main(props) {
         <main className="content page__content">
             <section className="profile">
                 <div className="profile__passport">
-                    <div className="profile__photo-container">
+                    <div onClick={props.onEditAvatar} className="profile__photo-container">
                         <div className="profile__change-photo-overlay">
-                            <img src={penPath} alt="Кнопка изменить" onClick={props.onEditAvatar} className="profile__change-photo" />
+                            <img src={penPath} alt="Кнопка изменить" className="profile__change-photo" />
                         </div>
                         <img alt="Аватарка" className="profile__avatar" src={userAvatar} />
                     </div>
@@ -57,7 +57,7 @@ function Main(props) {
             <section className="elements">
                 <ul className="elements__grid">
                     {
-                        cards.map(item => <Card card={item} onCardClick={props.onCardClick} />)
+                        cards.map(item => <Card key={item._id} card={item} onCardClick={props.onCardClick} />)
                     }
                 </ul>
             </section>
