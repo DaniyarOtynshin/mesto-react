@@ -41,7 +41,7 @@ function App() {
         <Header />
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
         <Footer />
-        <PopupWithForm name="edit" isOpen={isEditProfilePopupOpen} title="Редактировать профиль" onClose={closeAllPopups}>
+        <PopupWithForm name="edit" isOpen={isEditProfilePopupOpen} title="Редактировать профиль" onClose={closeAllPopups} buttonText="Сохранить">
           <section className="popup__section">
             <input type="text" minLength="2" maxLength="40" name="name" id="name-input" required placeholder="Имя" className="popup__input" />
             <span className="popup__input-error" id="name-input-error"></span>
@@ -50,9 +50,8 @@ function App() {
             <input type="text" minLength="2" maxLength="200" name="about" id="description-input" required placeholder="О себе" className="popup__input" />
             <span className="popup__input-error" id="description-input-error"></span>
           </section>
-          <button type="submit" className="popup__submit-button">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm name="add" isOpen={isAddPlacePopupOpen} title="Новое место" onClose={closeAllPopups}>
+        <PopupWithForm name="add" isOpen={isAddPlacePopupOpen} title="Новое место" onClose={closeAllPopups} buttonText="Создать">
           <section className="popup__section">
             <input type="text" minLength="2" maxLength="30" name="name" id="title-input" required placeholder="Название" className="popup__input" />
             <span className="popup__input-error" id="title-input-error"></span>
@@ -61,18 +60,15 @@ function App() {
             <input type="url" name="link" id="link-input" required placeholder="Ссылка на картинку" className="popup__input" />
             <span className="popup__input-error" id="link-input-error"></span>
           </section>
-          <button type="submit" className="popup__submit-button">Создать</button>
         </PopupWithForm>
-        <PopupWithForm name="submit-form" isOpen={false} onClose={closeAllPopups}>
+        <PopupWithForm name="submit-form" isOpen={false} onClose={closeAllPopups} buttonText="Да">
           <h2 className="popup__title popup__title_submit-form">Вы уверены?</h2>
-          <button type="submit" className="popup__submit-button popup__submit-button_submit-form">Да</button>
         </PopupWithForm>
-        <PopupWithForm name="change-photo" isOpen={isEditAvatarPopupOpen} title="Обновить аватар" onClose={closeAllPopups}>
+        <PopupWithForm name="change-photo" isOpen={isEditAvatarPopupOpen} title="Обновить аватар" onClose={closeAllPopups} buttonText="Сохранить">
           <section className="popup__section">
             <input type="url" name="link" id="link-input" required placeholder="Ссылка на картинку" className="popup__input" />
             <span className="popup__input-error" id="link-input-error"></span>
           </section>
-          <button type="submit" className="popup__submit-button">Сохранить</button>
         </PopupWithForm>
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>

@@ -13,20 +13,14 @@ function Main(props) {
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        const userData = api.getUserInfo();
-        userData
+        api.renderPage()
             .then(data => {
-                setUserName(data.name);
-                setUserDescription(data.about);
-                setUserAvatar(data.avatar);
+                const [ cards, userData ] = data;
+                setUserName(userData.name);
+                setUserDescription(userData.about);
+                setUserAvatar(userData.avatar);
+                setCards(cards)
             })
-            .catch(err => console.error(err))
-        const initialCards = api.getInitialCards();
-        initialCards
-            .then(items => {
-                setCards(items)
-            }
-            )
             .catch(err => console.error(err))
     }, []);
 
