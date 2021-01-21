@@ -16,6 +16,12 @@ function AddPlacePopup(props) {
         setLink('');
     }
 
+    function handleClose() {
+        props.onClose()
+        setName('');
+        setLink('');
+    }
+
     function handleName(e) {
         setName(e.target.value);
     }
@@ -25,7 +31,7 @@ function AddPlacePopup(props) {
     }
 
     return (
-        <PopupWithForm name="add" isOpen={props.isOpen} title="Новое место" onClose={props.onClose} buttonText="Создать" onSubmit={handleAddPlaceSubmit}>
+        <PopupWithForm name="add" isOpen={props.isOpen} title="Новое место" onClose={handleClose} buttonText="Создать" onSubmit={handleAddPlaceSubmit}>
             <section className="popup__section">
                 <input type="text" minLength="2" maxLength="30" name="name" id="title-input" required placeholder="Название" className="popup__input" value={name} onChange={handleName} />
                 <span className="popup__input-error" id="title-input-error"></span>
