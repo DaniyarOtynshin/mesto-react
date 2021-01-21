@@ -103,6 +103,12 @@ class Api {
         .then((res) => this._checkResponse(res))
     };
 
+    changeLikeCardStatus(id, isLiked) {
+        return isLiked
+        ? this.dislike(id)
+        : this.like(id)
+    };
+
     renderPage() {
         return Promise.all([this.getInitialCards(), this.getUserInfo()])
     }

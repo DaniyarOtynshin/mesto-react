@@ -1,28 +1,14 @@
-import React from 'react';
 import penPath from '../images/Pen.svg';
 import editButtonPath from '../images/Edit_Button.svg';
 import crossPath from '../images/Cross.svg';
-import api from '../utils/Api';
 import Card from './Card';
+import React from 'react';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState('');
-    const [userDescription, setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
-    const [cards, setCards] = React.useState([]);
-
-    React.useEffect(() => {
-        api.renderPage()
-            .then(data => {
-                const [ cards, userData ] = data;
-                setUserName(userData.name);
-                setUserDescription(userData.about);
-                setUserAvatar(userData.avatar);
-                setCards(cards)
-            })
-            .catch(err => console.error(err))
-    }, []);
+    const currentUser = React.useContext(CurrentUserContext);
 
     return (
         <main className="content page__content">
@@ -32,16 +18,16 @@ function Main(props) {
                         <div className="profile__change-photo-overlay">
                             <img src={penPath} alt="Кнопка изменить" className="profile__change-photo" />
                         </div>
-                        <img alt="Аватарка" className="profile__avatar" src={userAvatar} />
+                        <img alt="Аватарка" className="profile__avatar" src={currentUser.avatar} />
                     </div>
                     <div className="profile__profile-info">
                         <div className="profile__name-button">
-                            <h1 className="profile__name">{userName}</h1>
+                            <h1 className="profile__name">{currentUser.name}</h1>
                             <button type="button" onClick={props.onEditProfile} className="profile__edit-button">
                                 <img src={editButtonPath} alt="Кнопка изменить" className="profile__pen" />
                             </button>
                         </div>
-                        <p className="profile__description">{userDescription}</p>
+                        <p className="profile__description">{currentUser.about}</p>
                     </div>
                 </div>
                 <button type="button" onClick={props.onAddPlace} className="profile__add-button">
@@ -51,7 +37,7 @@ function Main(props) {
             <section className="elements">
                 <ul className="elements__grid">
                     {
-                        cards.map(item => <Card key={item._id} card={item} onCardClick={props.onCardClick} />)
+                        props.cards.map(item => <Card key={item._id} card={item} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />)
                     }
                 </ul>
             </section>
