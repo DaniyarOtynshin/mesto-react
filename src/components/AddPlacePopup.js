@@ -11,9 +11,7 @@ function AddPlacePopup(props) {
         props.onAddPlace({
           name, link
         });
-        props.onClose()
-        setName('');
-        setLink('');
+        handleClose();
     }
 
     function handleClose() {
