@@ -5,7 +5,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
+import api from '../utils/api';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
@@ -65,36 +65,39 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-      api.getInitialCards()
-          .then(cards => {
-              setCards(cards)
-          })
-          .catch(err => console.error(err))
+    api.getInitialCards()
+      .then(cards => {
+        setCards(cards)
+      })
+      .catch(err => console.error(err))
   }, []);
 
   function handleCardLike(card) {
-      const isLiked = card.likes.some(i => i._id === currentUser._id);
-      api.changeLikeCardStatus(card._id, isLiked)
-          .then((newCard) => {
-          const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-          setCards(newCards);
-          });
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+        setCards(newCards);
+      })
+      .catch(err => console.error(err))
   }
 
   function handleCardDelete(card) {
-      api.deleteCard(card._id)
-          .then((_) => {
-          const newCards = cards.filter((c) => c._id !== card._id);
-          setCards(newCards);
-          });
+    api.deleteCard(card._id)
+      .then((_) => {
+        const newCards = cards.filter((c) => c._id !== card._id);
+        setCards(newCards);
+      })
+      .catch(err => console.error(err))
   }
 
   function handleAddPlace(cardInfo) {
     api.addNewCard(cardInfo)
-        .then((newCard) => {
-          setCards([newCard, ...cards])
-        });
-}
+      .then((newCard) => {
+        setCards([newCard, ...cards])
+      })
+      .catch(err => console.error(err))
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -104,10 +107,7 @@ function App() {
           <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
           <Footer />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace}/>
-          <PopupWithForm name="submit-form" isOpen={false} onClose={closeAllPopups} buttonText="Да">
-            <h2 className="popup__title popup__title_submit-form">Вы уверены?</h2>
-          </PopupWithForm>
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
