@@ -47,6 +47,7 @@ function App() {
       .then(data => {
         setCurrentUser(data);
       })
+      .catch(err => console.error(err))
   }
 
   function handleUpdateUser(userInfo) {
@@ -55,11 +56,13 @@ function App() {
         setCurrentUser(data);
         closeAllPopups();
       })
+      .catch(err => console.error(err))
   }
 
   React.useEffect(() => {
     api.getUserInfo()
-      .then(data => setCurrentUser(data));
+      .then(data => setCurrentUser(data))
+      .catch(err => console.error(err))
   }, [])
 
   React.useEffect(() => {
